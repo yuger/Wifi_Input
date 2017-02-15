@@ -284,21 +284,21 @@
       if (stat == null) return;
 
       if (newState == "connected") {
-        stat.innerHTML = "$7f070006";
+        stat.innerHTML = "Connected";
         stat["color"] = "green";
-        xcomment.innerHTML = "$7f070004";
+        xcomment.innerHTML = "You can type now.";
       } else if (newState == "failure") {
-        stat.innerHTML = "$7f070003";
+        stat.innerHTML = "Connection problem";
         stat["color"] = "red";
-        xcomment.innerHTML = "$7f070002";
+        xcomment.innerHTML = "No connection between the phone and computer.";
       } else if (newState == "problem") {
-        stat.innerHTML = "$7f070019";
+        stat.innerHTML = "Not typing";
         stat["color"] = "red";
-        xcomment.innerHTML = 'Enable WiFiKeyboard input on you device. <!--<a href="http://code.google.com/p/wifikeyboard/wiki/WiFiKeyboardSettings">$7f070017</a>-->';
+        xcomment.innerHTML = 'Enable WiFiKeyboard input on you device. <!--<a href="http://code.google.com/p/wifikeyboard/wiki/WiFiKeyboardSettings">Visit help page.</a>-->';
       } else if (newState == "multi") {
-        stat.innerHTML = "$7f07001d";
+        stat.innerHTML = "Mutiple input";
         stat["color"] = "red";
-        xcomment.innerHTML = "$7f07001c";
+        xcomment.innerHTML = "Typing from multiple browser windows is not supported. Use one browser window.";
       }
     }
 
@@ -471,9 +471,9 @@
                 <tr>
                     <td cellspacing="50" cellpadding="50">
                         <form name="f">
-                            <h2>$7f070022</h2>
-                            <div class="mode"><input type="radio" name="mode" value="i" checked>$7f070021</div>
-                            <div class="mode"><input type="radio" name="mode" value="c">$7f070020</div>
+                            <h2>Keyboard mode:</h2>
+                            <div class="mode"><input type="radio" name="mode" value="i" checked>International keyboard</div>
+                            <div class="mode"><input type="radio" name="mode" value="c">Game mode (key codes only)</div>
                         </form>
                     </td>
                 </tr>
@@ -489,16 +489,16 @@
                     <td cellspacing="50" cellpadding="50">
                 <tr>
                     <td>
-                        <h2>$7f07002b</h2>
+                        <h2>Special keys:</h2>
                         <ul>
-                            <li>$7f070029</li>
-                            <li>$7f070024</li>
-                            <li>$7f070025</li>
-                            <li>$7f070027</li>
-                            <li>$7f070028</li>
+                            <li>Shift = Shift</li>
+                            <li>Alt = Alt</li>
+                            <li>Arrows = DPAD Arrows</li>
+                            <li>Insert or F1 = DPAD Center</li>
+                            <li>F2 = Menu</li>
                             <li>F3 = Search</li>
                             <li>Escape,F5 = BACK</li>
-                            <li>$7f07002a</li>
+                            <li>F9, F10 = Volume control</li>
                             <li><font color="red">F4 = Edit locally/ submit (alpha)</font></li>
                         </ul>
                     </td>
@@ -512,7 +512,7 @@
                 <tbody>
                 <tr>
                     <td cellspacing="50" cellpadding="50">
-                        <h2>$7f07001f <font color="black" id="status">Connecting...</font></h2>
+                        <h2>Status: <font color="black" id="status">Connecting...</font></h2>
                         <div id="comment"></div>
                     </td>
                 </tr>
@@ -524,7 +524,7 @@
     </tr>
     <tr>
         <td colspan="3">
-            <h2>$7f07001b</h2>
+            <h2>Android input (type or paste here):</h2>
             <form method="post" action="/form">
                 <input type="hidden" name="name" value="value">
                 <textarea name="text" cols="100" rows="20" id="in"></textarea>
@@ -534,7 +534,7 @@
     </tr>
     <tr>
         <td colspan="3">
-            <div class="footer"><!--<a href="http://code.google.com/p/wifikeyboard/">-->$7f070014<!--</a><br>$7f070013--></div>
+            <div class="footer"><!--<a href="http://code.google.com/p/wifikeyboard/">-->Source code available (license GPL v2).<!--</a><br>Created by Ivan Volosyuk on 2010.--></div>
             <!-- <div id="keys">Debug: key presses:</div> -->
             <!-- <div id="debug">New event placeholder.</div> -->
         <td>
