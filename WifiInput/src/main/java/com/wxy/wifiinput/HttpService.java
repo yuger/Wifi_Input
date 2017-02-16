@@ -38,7 +38,6 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 public class HttpService extends Service {
     RemoteKeyListener listener;
@@ -56,7 +55,6 @@ public class HttpService extends Service {
         }
     };
 
-
     public HttpService() {
         mWifiStateFilter = new IntentFilter(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         mWifiStateFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
@@ -64,28 +62,25 @@ public class HttpService extends Service {
     }
 
     final IBinder mBinder = new RemoteKeyboard.Stub() {
-        //@Override
+        @Override
         public void registerKeyListener(final RemoteKeyListener listener) throws RemoteException {
             HttpService.this.listener = listener;
         }
 
-        //@Override
+        @Override
         public void unregisterKeyListener(final RemoteKeyListener listener) throws RemoteException {
             if (HttpService.this.listener == listener) {
                 HttpService.this.listener = null;
-//        Debug.d("Removed listener");
             }
         }
 
         @Override
         public void startTextEdit(String content) throws RemoteException {
-            // FIXME: add args
             if (server != null) server.notifyClient(content);
         }
 
         @Override
         public void stopTextEdit() throws RemoteException {
-            // FIXME: add args
             if (server != null) server.notifyClient(null);
         }
 
@@ -95,12 +90,11 @@ public class HttpService extends Service {
             if (port != 0) {
                 portUpdateListener.portUpdated(port);
             }
-
         }
     };
 
     private void updateNotification(boolean ticker) {
-        ArrayList<String> addrs = WiFiKeyboard.getNetworkAddresses();
+        ArrayList<String> addrs = WiFiInput.getNetworkAddresses();
         String addr = null;
         for (String newAddr : addrs) {
             if (addr == null || addr.contains("::")) {
@@ -110,24 +104,12 @@ public class HttpService extends Service {
         if (addr == null) {
             addr = "Port: " + port;
         }
-        String tickerText = addr + " - WiFiKeyboard";
-
-//        Notification notification = new Notification(R.drawable.icon, ticker ? tickerText : null, when);
-//        Context context = getApplicationContext();
-//        CharSequence contentTitle = "WiFi Keyboard";
-//        CharSequence contentText = addr;
-//        Intent notificationIntent = new Intent(this, WiFiKeyboard.class);
-//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-//        notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-//        NotificationManager mgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        mgr.notify(0, notification);
-
-        Intent notificationIntent = new Intent(this, WiFiKeyboard.class);
+        String tickerText = addr + " - WiFiInput";
+        Intent notificationIntent = new Intent(this, WiFiInput.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
         Notification notification = new Notification.Builder(this).setSmallIcon(R.drawable.icon).setTicker(ticker ? tickerText : null).setShowWhen(true).setContentTitle(getString(R.string.app_name)).setContentText(addr).setContentIntent(contentIntent).build();
         NotificationManager mgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mgr.notify(0, notification);
-
     }
 
     private final BroadcastReceiver mWifiStateReceiver = new BroadcastReceiver() {
@@ -139,10 +121,8 @@ public class HttpService extends Service {
 
     private static ServerSocketChannel makeSocket(Context context) {
         ServerSocketChannel ch;
-
         SharedPreferences prefs = context.getSharedPreferences("port", MODE_PRIVATE);
         int savedPort = prefs.getInt("port", 7777);
-
         try {
             ch = ServerSocketChannel.open();
             ch.socket().setReuseAddress(true);
@@ -150,7 +130,6 @@ public class HttpService extends Service {
             return ch;
         } catch (IOException ignore) {
         }
-
         if (savedPort != 7777) {
             try {
                 ch = ServerSocketChannel.open();
@@ -160,7 +139,6 @@ public class HttpService extends Service {
             } catch (IOException ignore) {
             }
         }
-
         for (int i = 1; i < 9; i++) {
             try {
                 ch = ServerSocketChannel.open();
@@ -191,19 +169,15 @@ public class HttpService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d("wifikeyboard", "onCreate()");
         super.onCreate();
         if (isRunning) return;
-
         registerReceiver(mWifiStateReceiver, mWifiStateFilter);
         TelephonyManager t = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         t.listen(dataListener, PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
-
         InputStream is = getResources().openRawResource(R.raw.key);
         int pagesize = 32768;
         byte[] data = new byte[pagesize];
         StringBuilder page;
-
         try {
             int offset = 0;
             while (true) {
@@ -236,8 +210,6 @@ public class HttpService extends Service {
     public void onDestroy() {
         isRunning = false;
         onServerFinish = null;
-//    stopForeground(true);
-        Log.d("wifikeyboard", "onDestroy()");
         server.finish();
         unregisterReceiver(mWifiStateReceiver);
         TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
@@ -264,8 +236,7 @@ public class HttpService extends Service {
             if (context.portUpdateListener != null) {
                 context.portUpdateListener.portUpdated(context.port);
             }
-        } catch (RemoteException e) {
-            Log.e("wifikeyboard", "port update failure", e);
+        } catch (RemoteException ignore) {
         }
         context.updateNotification(true);
         server.start();

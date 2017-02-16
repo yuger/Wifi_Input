@@ -36,7 +36,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class WidgetConfigure extends Activity {
     private static final String PREFS_WIDGETS = "widgets";
-
     private int mAppWidgetId;
 
     @Override
@@ -47,13 +46,11 @@ public class WidgetConfigure extends Activity {
         if (extras != null) {
             mAppWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
-
         setContentView(R.layout.configure);
         final EditText editText = (EditText) findViewById(R.id.text);
         final CheckBox enabled = (CheckBox) findViewById(R.id.enabled);
         Button ok = (Button) findViewById(R.id.ok);
         Button cancel = (Button) findViewById(R.id.cancel);
-
         ok.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,10 +58,8 @@ public class WidgetConfigure extends Activity {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(textEnableProperty(mAppWidgetId), enabled.isChecked());
                 editor.putString(textStringProperty(mAppWidgetId), editText.getText().toString());
-                editor.commit();
+                editor.apply();
                 WidgetProvider.log(WidgetConfigure.this, "Widget " + mAppWidgetId + " configured");
-
-
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(WidgetConfigure.this);
                 updateWidget(WidgetConfigure.this, appWidgetManager, mAppWidgetId);
                 Intent resultValue = new Intent();
@@ -79,14 +74,12 @@ public class WidgetConfigure extends Activity {
                 finish();
             }
         });
-
         enabled.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editText.setEnabled(isChecked);
             }
         });
-
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
         setResult(RESULT_CANCELED, resultValue);
@@ -110,14 +103,13 @@ public class WidgetConfigure extends Activity {
     static void updateWidget(Context context, AppWidgetManager appWidgetManager, int id) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_WIDGETS, Context.MODE_PRIVATE);
         boolean textEnable = prefs.getBoolean(textEnableProperty(id), true);
-        String text = prefs.getString(textStringProperty(id), "WiFiKeyboard");
+        String text = prefs.getString(textStringProperty(id), "WiFiInput");
         RemoteViews view = new RemoteViews("com.volosyukivan", R.layout.widget);
         if (!textEnable) view.setViewVisibility(R.id.text, View.GONE);
         else view.setTextViewText(R.id.text, text);
         view.setImageViewResource(R.id.icon, R.drawable.icon);
         Intent intent = new Intent(context, WidgetActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-
         // FIXME: not icon, but all widget
         view.setOnClickPendingIntent(R.id.icon, pendingIntent);
         appWidgetManager.updateAppWidget(id, view);

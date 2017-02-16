@@ -20,22 +20,14 @@ package com.wxy.wifiinput;
 
 import android.view.KeyEvent;
 
-public final class KeycodeConvertor {
-    public static int convertKey(int code) {
-        // public static final int KEYCODE_A = 29;
-        // ...
-        // public static final int KEYCODE_Z = 54;
+final class KeycodeConvertor {
+    static int convertKey(int code) {
         if (code >= 65 && code <= 90) {
             return code - 65 + KeyEvent.KEYCODE_A;
         }
-
-        // public static final int KEYCODE_0 = 7;
-        // ...
-        // public static final int KEYCODE_9 = 16;
         if (code >= 48 && code <= 57) {
             return code - 48 + KeyEvent.KEYCODE_0;
         }
-
         switch (code) {
             case 9:
                 return KeyEvent.KEYCODE_TAB;
@@ -69,7 +61,6 @@ public final class KeycodeConvertor {
                 return KeyEvent.KEYCODE_ALT_LEFT;
             case 16:
                 return KeyEvent.KEYCODE_SHIFT_LEFT;
-
             // public static final int KEYCODE_DPAD_UP = 19;
             // public static final int KEYCODE_DPAD_DOWN = 20;
             // public static final int KEYCODE_DPAD_LEFT = 21;
@@ -89,8 +80,6 @@ public final class KeycodeConvertor {
                 return KeyEvent.KEYCODE_DPAD_CENTER;
             case 45:
                 return KeyEvent.KEYCODE_DPAD_CENTER;
-
-
             // ESC
             case 27:
                 return KeyEvent.KEYCODE_BACK;
@@ -99,13 +88,8 @@ public final class KeycodeConvertor {
             // Home
             case 113:
                 return KeyEvent.KEYCODE_MENU;
-
             case 114:
                 return KeyEvent.KEYCODE_SEARCH;
-            // case x: return KeyEvent.KEYCODE_CALL;
-            // case x: return KeyEvent.KEYCODE_ENDCALL;
-
-            // F9, F10
             case 121:
                 return KeyEvent.KEYCODE_VOLUME_UP;
             case 120:
@@ -120,45 +104,8 @@ public final class KeycodeConvertor {
                 return WiFiInputMethod.KEY_CONTROL;
             case 46:
                 return WiFiInputMethod.KEY_DEL;
-
             default:
                 return -1;
         }
-
-        // case x: return KeyEvent.KEYCODE_SOFT_LEFT;
-        // case x: return KeyEvent.KEYCODE_SOFT_RIGHT;
-        // case x: return KeyEvent.KEYCODE_STAR;
-        // case x: return KeyEvent.KEYCODE_POUND;
-        // case x: return KeyEvent.KEYCODE_POWER;
-        // case x: return KeyEvent.KEYCODE_CAMERA;
-        // case x: return KeyEvent.KEYCODE_CLEAR;
-        // case x: return KeyEvent.KEYCODE_ALT_RIGHT;
-        // case x: return KeyEvent.KEYCODE_SHIFT_RIGHT;
-        // case x: return KeyEvent.KEYCODE_SYM;
-        // case x: return KeyEvent.KEYCODE_EXPLORER;
-        // case x: return KeyEvent.KEYCODE_ENVELOPE;
-        // case x: return KeyEvent.KEYCODE_GRAVE;
-        // case x: return KeyEvent.KEYCODE_AT;
-        // case x: return KeyEvent.KEYCODE_NUM;
-        // case x: return KeyEvent.KEYCODE_HEADSETHOOK;
-        // case x: return KeyEvent.KEYCODE_FOCUS;
-        // case x: return KeyEvent.KEYCODE_PLUS;
-        // case x: return KeyEvent.KEYCODE_NOTIFICATION;
-        // case x: return KeyEvent.KEYCODE_SEARCH;
-        // case x: return KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
-        // case x: return KeyEvent.KEYCODE_MEDIA_STOP;
-        // case x: return KeyEvent.KEYCODE_MEDIA_NEXT;
-        // case x: return KeyEvent.KEYCODE_MEDIA_PREVIOUS;
-        // case x: return KeyEvent.KEYCODE_MEDIA_REWIND;
-        // case x: return KeyEvent.KEYCODE_MEDIA_FAST_FORWARD;
-        // case x: return KeyEvent.KEYCODE_MUTE;
-        //
-        // META_ALT_ON = 2;
-        // META_ALT_LEFT_ON = 16;
-        // META_ALT_RIGHT_ON = 32;
-        // META_SHIFT_ON = 1;
-        // META_SHIFT_LEFT_ON = 64;
-        // META_SHIFT_RIGHT_ON = 128;
-        // META_SYM_ON = 4;
     }
 }

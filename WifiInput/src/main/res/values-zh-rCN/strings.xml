@@ -22,7 +22,7 @@
     <string name="input_disabled_desc">在你的设备上开启 WiFi输入法 输入。</string>
     <string name="input_disabled_link_text">访问帮助页面。</string>
     <!-- ignore the line, I'll add the url myself -->
-    <string name="input_disabled_link_url">http://code.google.com/p/wifikeyboard/wiki/WiFiKeyboardSettings_zh_CN</string>
+    <string name="input_disabled_link_url">http://code.google.com/p/WiFiInput/wiki/WiFiInputSettings_zh_CN</string>
     <!-- Please preserve formating of wiki page, "!" sign before WiFi输入法 disables automatic link creation from WiFi输入法 because it is WikiWord -->
 <string name="help_wiki_page">
 #summary 如何在设备上启用 !WiFi输入法

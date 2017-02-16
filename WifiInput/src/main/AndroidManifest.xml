@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         android:label="@string/app_name">
         <activity
-            android:name="com.wxy.wifiinput.WiFiKeyboard"
+            android:name="com.wxy.wifiinput.WiFiInput"
             android:clearTaskOnLaunch="true"
             android:label="@string/app_name"
             android:noHistory="true"
@@ -60,7 +60,7 @@
 
         <receiver
             android:name="com.wxy.wifiinput.WidgetProvider"
-            android:label="WiFiKeyboard">
+            android:label="WiFiInput">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>

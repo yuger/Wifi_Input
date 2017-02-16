@@ -35,9 +35,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-//import com.volosyukivan.PortUpdateListener.Stub;
-
-public class WiFiKeyboard extends Activity {
+public class WiFiInput extends Activity {
     int port = 7777;
     LinearLayout layout;
     ServiceConnection serviceConnection;
@@ -75,7 +73,6 @@ public class WiFiKeyboard extends Activity {
         text(R.string.desc_setup_wifi, 20);
         text(R.string.desc_goto_settings);
         text(R.string.desc_enable_kbd);
-//        text(R.string.desc_toch_input_field);
         text(R.string.desc_change_input_method);
         text("", 15);
         if (addrs.size() == 0) {
@@ -128,7 +125,6 @@ public class WiFiKeyboard extends Activity {
         if (!this.bindService(new Intent(this, HttpService.class), serviceConnection, BIND_AUTO_CREATE)) {
             throw new RuntimeException("failed to connect to HttpService");
         }
-
         setContentView(createView());
     }
 
