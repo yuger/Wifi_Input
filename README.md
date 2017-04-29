@@ -8,6 +8,7 @@ Wifi_Input is an android app which use your computer's keyboard for typing in yo
 ![](https://github.com/yuger/Wifi_Input/blob/master/5.png)
 ![](https://github.com/yuger/Wifi_Input/blob/master/6.png)
 
+depend on [wifikeyboard](https://github.com/IvanVolosyuk/wifikeyboard)
 
 ```
 License: 
